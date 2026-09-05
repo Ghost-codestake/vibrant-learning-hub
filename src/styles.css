@@ -19,6 +19,7 @@
  */
 
 @theme inline {
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -59,6 +60,15 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-brand: var(--brand);
+  --color-brand-soft: var(--brand-soft);
+  --color-ink: var(--ink);
+  --color-panel: var(--panel);
+  --color-panel-raised: var(--panel-raised);
+  --color-teal: var(--teal);
+  --color-amber: var(--amber);
+  --color-rose: var(--rose);
+  --color-sky: var(--sky);
 }
 
 :root {
@@ -95,6 +105,15 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+  --brand: oklch(0.63 0.24 294);
+  --brand-soft: oklch(0.63 0.24 294 / 16%);
+  --ink: oklch(0.145 0.012 285);
+  --panel: oklch(0.205 0.016 285);
+  --panel-raised: oklch(0.235 0.018 285);
+  --teal: oklch(0.79 0.14 180);
+  --amber: oklch(0.77 0.17 70);
+  --rose: oklch(0.72 0.18 15);
+  --sky: oklch(0.72 0.14 235);
 }
 
 .dark {
@@ -140,5 +159,30 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    letter-spacing: 0;
   }
+}
+
+@keyframes progress-grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@utility animate-progress {
+  animation: progress-grow 800ms cubic-bezier(.22, 1, .36, 1) both;
+  transform-origin: left;
+}
+
+@utility animate-rise {
+  animation: rise-in 420ms cubic-bezier(.22, 1, .36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-progress, .animate-rise { animation: none; }
 }
