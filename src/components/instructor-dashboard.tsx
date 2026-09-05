@@ -7,7 +7,8 @@ import { useMemo, useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-export const instructorNav = [
+type InstructorNavItem = { label: string; to: string; icon: typeof LayoutDashboard; badge?: string };
+export const instructorNav: InstructorNavItem[] = [
   { label: "Dashboard", to: "/instructor/dashboard", icon: LayoutDashboard },
   { label: "My Courses", to: "/instructor/courses", icon: BookOpen },
   { label: "Course Builder", to: "/instructor/course/1/builder", icon: Sparkles },
@@ -49,7 +50,8 @@ export function InstructorShell({ children }: { children: ReactNode }) {
           {instructorNav.map((item) => {
             const active = pathname === item.to || (item.label === "Course Builder" && pathname.includes("/builder")) || (item.label === "Section Content" && pathname.includes("/section/"));
             const Icon = item.icon;
-            return <Link key={item.label} to={item.to} params={item.to.includes("$id") ? { id: "1" } : undefined as never} onClick={() => setMobileOpen(false)} title={item.label} className={cn("group relative flex h-10 items-center gap-3 rounded-[10px] px-3 text-sm text-muted-foreground transition hover:-translate-y-0.5 hover:bg-panel-raised hover:text-foreground lg:w-10 lg:justify-center lg:px-0", active && "bg-panel-raised text-brand ring-1 ring-brand/30")}>
+            const destination = item.to.replace("$id", "1");
+            return <Link key={item.label} to={destination} onClick={() => setMobileOpen(false)} title={item.label} className={cn("group relative flex h-10 items-center gap-3 rounded-[10px] px-3 text-sm text-muted-foreground transition hover:-translate-y-0.5 hover:bg-panel-raised hover:text-foreground lg:w-10 lg:justify-center lg:px-0", active && "bg-panel-raised text-brand ring-1 ring-brand/30")}>
               <Icon className="size-4" /><span className="lg:hidden">{item.label}</span>{item.badge && <span className="ml-auto rounded-md bg-rose/15 px-1.5 py-0.5 text-[10px] font-semibold text-rose lg:absolute lg:-right-1 lg:-top-1">{item.badge}</span>}
               <span className="pointer-events-none absolute left-12 hidden whitespace-nowrap rounded-md bg-panel-raised px-2 py-1 text-[11px] text-foreground ring-1 ring-border group-hover:lg:block">{item.label}</span>
             </Link>;

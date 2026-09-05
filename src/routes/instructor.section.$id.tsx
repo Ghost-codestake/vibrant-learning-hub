@@ -1,0 +1,3 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { CollectionPage } from "@/components/instructor-dashboard";
+export const Route = createFileRoute("/instructor/section/$id")({ head: () => ({ meta: [{ title: "Section Content — TechHive" }, { name: "description", content: "Manage lessons and resources in a course section." }, { property: "og:title", content: "Section Content — TechHive" }, { property: "og:description", content: "Manage lessons and resources in a course section." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }), component: () => <CollectionPage kind="section" /> });
