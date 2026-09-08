@@ -124,8 +124,11 @@ export const moveSection = (courseId: string, sectionId: string, direction: -1 |
     const list = [...course.sections];
     const from = list.findIndex((s) => s.id === sectionId);
     const to = from + direction;
-    if (from < 0 || to < 0 || to >= list.length) return;
-    [list[from], list[to]] = [list[to], list[from]];
+    const a = list[from];
+    const b = list[to];
+    if (!a || !b) return;
+    list[from] = b;
+    list[to] = a;
     course.sections = list;
   });
 
